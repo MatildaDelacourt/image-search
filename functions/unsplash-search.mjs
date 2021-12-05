@@ -1,4 +1,5 @@
 import fetch from 'node-fetch';
+console.log('helo from unsplas');
 
 exports.handler = async (event) => {
   const { query } = JSON.parse(event.body);
@@ -10,7 +11,7 @@ exports.handler = async (event) => {
     },
   })
     .then((response) => {
-      // console.log(response);
+      console.log('are we logged in?',response);
       return response.json();
     })
     .catch((error) => console.log('error', error));

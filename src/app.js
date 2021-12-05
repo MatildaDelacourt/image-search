@@ -1,7 +1,9 @@
 const form = document.querySelector('.search-form');
+console.log('in app js');
 
 form.addEventListener('submit', async (event) => {
   event.preventDefault();
+  console.log('submit form');
 
   const formData = new FormData(event.target);
 
@@ -11,7 +13,10 @@ form.addEventListener('submit', async (event) => {
       query: formData.get('query'),
     }),
   })
-    .then((res) => res.json())
+  .then((resp)=>{
+    console.log('response here: ',resp)
+  })
+    // .then((res) => res.json())
     .catch((err) => console.error(err));
 
   /*
