@@ -8,8 +8,7 @@ exports.handler = async (event) => {
     {
       method: 'GET',
       headers: {
-        //Authorization: `Client-ID ${process.env.UNSPLASH_ACCESS_KEY}`,
-        Authorization: `Client-ID Ty0oFbjLPLxuJgx2DpP7_O_4IfpuXwKojIe9AOqKB_Y`,
+        Authorization: `Client-ID ${process.env.UNSPLASH_ACCESS_KEY}`,
       },
     }
   )
