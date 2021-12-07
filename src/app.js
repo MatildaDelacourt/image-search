@@ -1,9 +1,7 @@
 const form = document.querySelector('.search-form');
-console.log('in app js');
 
 form.addEventListener('submit', async (event) => {
   event.preventDefault();
-  console.log('submit form');
 
   const formData = new FormData(event.target);
 
@@ -13,34 +11,37 @@ form.addEventListener('submit', async (event) => {
       query: formData.get('query'),
     }),
   })
-  .then((resp)=>{
-    console.log('response here: ',resp)
-  })
-    // .then((res) => res.json())
+    .then((res) => res.json())
     .catch((err) => console.error(err));
 
-  /*
-  some sample code
-    const dataObj = response.results[0];
-    const postImg = clone.querySelector('.post__img');
-    postImg.src = dataObj.urls.small;
-    postImg.alt = dataObj.alt_description;
-  */
+  const data = response.results;
 
-  /*
-    Loop through the results[] array. For each result, create a clone of the
-    template and append it to the DOM element with the .container class.
-  */
+  if (data.length !== 0) {
+    var container = document.querySelector('.container');
+    container.innerText = '';
+    var template = document.querySelector('#template');
 
-  /*
-    Add an attribution statement below the image using the
-    postUser element and the photographer's name from dataObj
-   */
+    data.forEach(function (result) {
+      var clone = template.content.cloneNode(true);
+      var img = clone.querySelectorAll('img');
+      var caption = clone.querySelectorAll('figcaption');
+      var desc = clone.querySelectorAll('p');
 
-  /*
-    Check the description of the post. If it's bot bull and less than 100 characters,
-    add the description from dataObj to the post. If it's more than 100 characters,
-    add the first 100 characters of the description from dataObj to the post followed by
-    an ellipsis (...)
-  */
+      img[0].src = result.urls.thumb;
+      caption[0].innerText = 'by ' + result.user.name;
+
+      if (result.description != null) {
+        if (result.description.length > 100) {
+          result.description = result.description.substr(0, 99) + '...';
+        }
+
+        desc[0].innerText = result.description;
+      }
+
+      container.appendChild(clone);
+    });
+  } else {
+    var container = document.querySelector('.container');
+    container.innerText = 'No results found';
+  }
 });
